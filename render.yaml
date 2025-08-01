@@ -3,7 +3,7 @@ services:
     name: ecommerce-react-app
     env: static
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: ./build
     envVars:
       - key: NODE_VERSION
         value: 18.17.0 
