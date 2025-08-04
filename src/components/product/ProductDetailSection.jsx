@@ -1,3 +1,4 @@
+import React from "react";
 import { Nav, Tab } from "react-bootstrap";
 import ProductDetailSlider from "../sliders/ProductDetailSlider";
 import ProductDetailTextSection from "./ProductDetailTextSection";
@@ -6,6 +7,7 @@ import ProductReviewTabPane from "./ProductReviewTabPane";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { viewProduct } from "../../api/product/product";
+import ProductDetailSkeleton from "./ProductDetailSkeleton";
 
 const ProductDetailSection = () => {
   const [activeTab, setActiveTab] = useState("description");
@@ -34,72 +36,78 @@ const ProductDetailSection = () => {
       fetchProduct();
     }
   }, [id]);
-  
+
   return (
-    <section className="fz-product-details">
-      <div className="container">
-        <div className="row align-items-center justify-content-center">
-          <div className="col-lg-5 col-md-6 col-12 col-xxs-12">
-            <ProductDetailSlider product={product} />
-          </div>
+    <>
+      {loading ? (
+        <ProductDetailSkeleton />
+      ) : (
+        <section className="fz-product-details">
+          <div className="container">
+            <div className="row align-items-center justify-content-center">
+              <div className="col-lg-5 col-md-6 col-12 col-xxs-12">
+                <ProductDetailSlider product={product} />
+              </div>
 
-          <div className="col-lg-7 col-md-6">
-            <ProductDetailTextSection product={product} />
-          </div>
+              <div className="col-lg-7 col-md-6">
+                <ProductDetailTextSection product={product} />
+              </div>
 
-          {/* <div className="col-12">
-            <div className="fz-product-details__additional-info">
-              <Nav
-                activeKey={activeTab}
-                onSelect={handleTabChange}
-                className="nav nav-tabs"
-                id="myTab"
-              >
-                <Nav.Item className="nav-item" role="presentation">
-                  <Nav.Link
-                    className="nav-link"
-                    eventKey="description"
-                    id="descr-tab"
-                    role="button"
+              {/* <div className="col-12">
+                <div className="fz-product-details__additional-info">
+                  <Nav
+                    activeKey={activeTab}
+                    onSelect={handleTabChange}
+                    className="nav nav-tabs"
+                    id="myTab"
                   >
-                    Description
-                  </Nav.Link>
-                </Nav.Item>
-                <Nav.Item className="nav-item" role="presentation">
-                  <Nav.Link
-                    className="nav-link"
-                    eventKey="review"
-                    id="review-tab"
-                    role="button"
-                  >
-                    Reviews
-                  </Nav.Link>
-                </Nav.Item>
-              </Nav>
-              <Tab.Content>
-                <Tab.Pane
-                  eventKey="description"
-                  className={`tab-pane ${
-                    activeTab === "description" ? "show active" : ""
-                  }`}
-                >
-                  <ProductDescTabPane />
-                </Tab.Pane>
+                    <Nav.Item className="nav-item" role="presentation">
+                      <Nav.Link
+                        className="nav-link"
+                        eventKey="description"
+                        id="descr-tab"
+                        role="button"
+                      >
+                        Description
+                      </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item className="nav-item" role="presentation">
+                      <Nav.Link
+                        className="nav-link"
+                        eventKey="review"
+                        id="review-tab"
+                        role="button"
+                      >
+                        Reviews
+                      </Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                  <Tab.Content>
+                    <Tab.Pane
+                      eventKey="description"
+                      className={`tab-pane ${
+                        activeTab === "description" ? "show active" : ""
+                      }`}
+                    >
+                      <ProductDescTabPane />
+                    </Tab.Pane>
 
-                <Tab.Pane
-                  eventKey="review"
-                  className={`tab-pane ${
-                    activeTab === "review" ? "show active" : ""
-                  }`}
-                >
-                  <ProductReviewTabPane />
-                </Tab.Pane>
-              </Tab.Content>
+                    <Tab.Pane
+                      eventKey="review"
+                      className={`tab-pane ${
+                        activeTab === "review" ? "show active" : ""
+                      }`}
+                    >
+                      <ProductReviewTabPane />
+                    </Tab.Pane>
+                  </Tab.Content>
+                </div>
+              </div> */}
             </div>
-          </div> */}
-        </div>
-      </div>
-    </section>
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 

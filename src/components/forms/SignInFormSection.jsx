@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login } from "../../api/auth/auth";
-import { getProfile } from "../../api/profile/profile";
+import { fetchProfile } from "../../store/profileSlice";
+import { useDispatch } from "react-redux";
+import ButtonSpinner from "../utils/ButtonSpinner";
 
 const SignInFormSection = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,6 +22,7 @@ const SignInFormSection = () => {
     } else if (!userName) {
       toast.warning("Please provide user name.", { position: "top-right" });
     } else {
+      setIsLoading(true);
       try {
         const response = await login({ userName, password });
         if (response?.token && response?._id) {
@@ -25,6 +30,7 @@ const SignInFormSection = () => {
           localStorage.setItem("id", response._id);
         }
         toast.success("Logged in successfully!", { position: "top-right" });
+        dispatch(fetchProfile());
         setUserName("");
         setPassword("");
         navigate("/");
@@ -32,6 +38,8 @@ const SignInFormSection = () => {
         toast.error(error?.response?.data?.message || "Login failed.", {
           position: "top-right",
         });
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -68,8 +76,19 @@ const SignInFormSection = () => {
         </Link>
       </div>
 
-      <button type="submit" className="fz-1-banner-btn single-form-btn">
-        Log in
+      <button
+        type="submit"
+        className="fz-1-banner-btn single-form-btn"
+        disabled={isLoading}
+      >
+                 {isLoading ? (
+           <>
+             <ButtonSpinner size="sm" color="black" />
+             Logging in...
+           </>
+         ) : (
+          "Log in"
+        )}
       </button>
     </form>
   );

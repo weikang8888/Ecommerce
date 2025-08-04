@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import WishlistItemTable from "../wishlist/WishlistItemTable";
 import { addCart } from "../../api/cart/cart";
@@ -6,10 +7,12 @@ import { fetchCart } from "../../store/cartSlice";
 import { fetchWish } from "../../store/wishSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import ButtonSpinner from "../utils/ButtonSpinner";
 
 const WishlistModal = ({ wishlistArray, show, setShow }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   // Function to close the modal and navigate
   const closeAndNavigate = (path) => {
@@ -19,6 +22,7 @@ const WishlistModal = ({ wishlistArray, show, setShow }) => {
 
   const handleAddAllToCart = async () => {
     if (!wishlistArray || wishlistArray.length === 0) return;
+    setIsLoading(true);
     try {
       // Add all items to cart
       await Promise.all(
@@ -45,6 +49,8 @@ const WishlistModal = ({ wishlistArray, show, setShow }) => {
           "Failed to add wishlist items to cart!",
         { position: "top-right" }
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -96,8 +102,16 @@ const WishlistModal = ({ wishlistArray, show, setShow }) => {
               <button
                 className="fz-1-banner-btn update-cart-btn"
                 onClick={handleAddAllToCart}
+                disabled={isLoading}
               >
-                Add to Cart
+                {isLoading ? (
+                  <>
+                    <ButtonSpinner size="sm" color="black" />
+                    Adding to Cart...
+                  </>
+                ) : (
+                  "Add to Cart"
+                )}
               </button>
             </div>
           )}

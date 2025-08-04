@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addCart } from "../../api/cart/cart";
 import { toast } from "react-toastify";
 import LoginModal from "../modal/LoginModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCart } from "../../store/cartSlice";
 import { addWish } from "../../api/wish/wish";
 import { fetchWish } from "../../store/wishSlice";
+import ProductSkeleton from "../shop/ProductSkeleton";
 
 const GlassSection2 = ({ products }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { status } = useSelector((state) => ({
+    status: state.products.status,
+  }));
 
   const [showLoginModal, setShowLoginModal] = useState(false);
   // Filter products by type
@@ -43,7 +49,11 @@ const GlassSection2 = ({ products }) => {
       return;
     }
     try {
-      await addWish({ productId });
+      const res = await addWish({ productId });
+      if (res.message && res.message.toLowerCase().includes("already in wishlist")) {
+        toast.warning("Already in wishlist.", { position: "top-right" });
+        return;
+      }
       dispatch(fetchWish());
       toast.success("Product added to wishlist!", { position: "top-right" });
     } catch (error) {
@@ -61,53 +71,68 @@ const GlassSection2 = ({ products }) => {
           <div className="row g-xl-4 g-lg-3 g-4">
             <div className="col-12">
               <div className="row g-xl-4 g-lg-3 g-2">
-                {eyeGlasses.slice(0, 3).map((item, index) => (
-                  <div
-                    className={`col-lg-3 col-md-4 col-6 order-lg-${
-                      index + 1
-                    } order-${index + 2}`}
-                    key={item._id}
-                  >
-                    <div className="fz-5-single-product">
-                      <div className="fz-5-single-product-img">
-                        <img src={item.image} alt={item.name} />
-                        <div className="fz-5-single-product-actions">
-                          <a
-                            role="button"
-                            className="fz-add-to-wishlist"
-                            onClick={() => handleAddToWish(item._id)}
-                          >
-                            <i className="fa-regular fa-heart"></i>
-                          </a>
-                          <a role="button" className="fz-quick-view">
-                            <i className="fa-regular fa-eye"></i>
-                          </a>
-                          {/* <a role="button" className="fz-compare">
-                            <i className="fa-regular fa-repeat"></i>
-                          </a> */}
-                          <a
-                            role="button"
-                            className="fz-add-to-cart-btn"
-                            onClick={() => handleAddToCart(item._id)}
-                          >
-                            <i className="fa-regular fa-cart-shopping"></i>
-                          </a>
+                {status === "loading" ? (
+                  <ProductSkeleton
+                    count={3}
+                    gridClass="col-lg-3 col-md-4 col-6"
+                  />
+                ) : (
+                  eyeGlasses.slice(0, 3).map((item, index) => (
+                    <div
+                      className={`col-lg-3 col-md-4 col-6 order-lg-${
+                        index + 1
+                      } order-${index + 2}`}
+                      key={item._id}
+                    >
+                      <div className="fz-5-single-product">
+                        <div className="fz-5-single-product-img">
+                          <img src={item.image} alt={item.name} />
+                          <div className="fz-5-single-product-actions">
+                            <a
+                              role="button"
+                              className="fz-add-to-wishlist"
+                              onClick={() => handleAddToWish(item._id)}
+                            >
+                              <i className="fa-regular fa-heart"></i>
+                            </a>
+                            <a
+                              role="button"
+                              className="fz-quick-view"
+                              onClick={() =>
+                                navigate(`/shopDetails/${item._id}`)
+                              }
+                            >
+                              <i className="fa-regular fa-eye"></i>
+                            </a>
+                            {/* <a role="button" className="fz-compare">
+                              <i className="fa-regular fa-repeat"></i>
+                            </a> */}
+                            <a
+                              role="button"
+                              className="fz-add-to-cart-btn"
+                              onClick={() => handleAddToCart(item._id)}
+                            >
+                              <i className="fa-regular fa-cart-shopping"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div className="fz-5-single-product-txt">
+                          <h3 className="fz-5-single-product-title">
+                            <Link to="/shopDetails">{item.name}</Link>
+                          </h3>
+                          <p className="fz-5-single-product-price">
+                            ${item.price}
+                          </p>
+                          {item.offer && (
+                            <div className="fz-5-discount-badge">
+                              Buy 1 Get 1
+                            </div>
+                          )}
                         </div>
                       </div>
-                      <div className="fz-5-single-product-txt">
-                        <h3 className="fz-5-single-product-title">
-                          <Link to="/shopDetails">{item.name}</Link>
-                        </h3>
-                        <p className="fz-5-single-product-price">
-                          ${item.price}
-                        </p>
-                        {item.offer && (
-                          <div className="fz-5-discount-badge">Buy 1 Get 1</div>
-                        )}
-                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
                 <div className="col-lg-3 col-md-4 col-6 order-lg-4 order-1">
                   <div className="fz-5-product-title-box">
                     <h3>Eye-Glasses</h3>
@@ -124,53 +149,62 @@ const GlassSection2 = ({ products }) => {
             </div>
             <div className="col-12">
               <div className="row g-xl-4 g-lg-3 g-2">
-                {computerGlasses.slice(0, 3).map((item, index) => (
-                  <div
-                    className={`col-lg-3 col-md-4 col-6 order-lg-${
-                      index + 1
-                    } order-${index + 2}`}
-                    key={item._id}
-                  >
-                    <div className="fz-5-single-product">
-                      <div className="fz-5-single-product-img">
-                        <img src={item.image} alt={item.name} />
-                        <div className="fz-5-single-product-actions">
-                          <a
-                            role="button"
-                            className="fz-add-to-wishlist"
-                            onClick={() => handleAddToWish(item._id)}
-                          >
-                            <i className="fa-regular fa-heart"></i>
-                          </a>
-                          <a role="button" className="fz-quick-view">
-                            <i className="fa-regular fa-eye"></i>
-                          </a>
-                          {/* <a role="button" className="fz-compare">
-                            <i className="fa-regular fa-repeat"></i>
-                          </a> */}
-                          <a
-                            role="button"
-                            className="fz-add-to-cart-btn"
-                            onClick={() => handleAddToCart(item._id)}
-                          >
-                            <i className="fa-regular fa-cart-shopping"></i>
-                          </a>
+                {status === "loading" ? (
+                  <ProductSkeleton
+                    count={3}
+                    gridClass="col-lg-3 col-md-4 col-6"
+                  />
+                ) : (
+                  computerGlasses.slice(0, 3).map((item, index) => (
+                    <div
+                      className={`col-lg-3 col-md-4 col-6 order-lg-${
+                        index + 1
+                      } order-${index + 2}`}
+                      key={item._id}
+                    >
+                      <div className="fz-5-single-product">
+                        <div className="fz-5-single-product-img">
+                          <img src={item.image} alt={item.name} />
+                          <div className="fz-5-single-product-actions">
+                            <a
+                              role="button"
+                              className="fz-add-to-wishlist"
+                              onClick={() => handleAddToWish(item._id)}
+                            >
+                              <i className="fa-regular fa-heart"></i>
+                            </a>
+                            <a role="button" className="fz-quick-view">
+                              <i className="fa-regular fa-eye"></i>
+                            </a>
+                            {/* <a role="button" className="fz-compare">
+                              <i className="fa-regular fa-repeat"></i>
+                            </a> */}
+                            <a
+                              role="button"
+                              className="fz-add-to-cart-btn"
+                              onClick={() => handleAddToCart(item._id)}
+                            >
+                              <i className="fa-regular fa-cart-shopping"></i>
+                            </a>
+                          </div>
+                        </div>
+                        <div className="fz-5-single-product-txt">
+                          <h3 className="fz-5-single-product-title">
+                            <Link to="/shopDetails">{item.name}</Link>
+                          </h3>
+                          <p className="fz-5-single-product-price">
+                            ${item.price}
+                          </p>
+                          {item.offer && (
+                            <div className="fz-5-discount-badge">
+                              Buy 1 Get 1
+                            </div>
+                          )}
                         </div>
                       </div>
-                      <div className="fz-5-single-product-txt">
-                        <h3 className="fz-5-single-product-title">
-                          <Link to="/shopDetails">{item.name}</Link>
-                        </h3>
-                        <p className="fz-5-single-product-price">
-                          ${item.price}
-                        </p>
-                        {item.offer && (
-                          <div className="fz-5-discount-badge">Buy 1 Get 1</div>
-                        )}
-                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
                 <div className="col-lg-3 col-md-4 col-6 order-lg-4 order-1">
                   <div className="fz-5-product-title-box">
                     <h3>Computer Glasses</h3>

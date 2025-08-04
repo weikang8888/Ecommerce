@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../../store/profileSlice";
 import { fetchCart } from "../../store/cartSlice";
 import { fetchWish } from "../../store/wishSlice";
+import Logo from "../../assets/logo-5.png";
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -35,10 +36,7 @@ const Layout = ({ children }) => {
       <HeaderSection />
       {children}
       <FooterSection />
-      <BottomMobileMenu
-        style="fz-5-mobile-menu"
-        logo="assets/images/logo-5.png"
-      />
+      <BottomMobileMenu style="fz-5-mobile-menu" logo={Logo} />
     </main>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { addCart } from "../../api/cart/cart";
 import { addWish } from "../../api/wish/wish";
+import ButtonSpinner from "../utils/ButtonSpinner";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { fetchCart } from "../../store/cartSlice";
@@ -12,6 +13,7 @@ const ProductDetailAction = ({ product }) => {
   const defaultQuantity = 1;
   const [quantity, setQuantity] = useState(defaultQuantity);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleQuantityChange = (newQuantity) => {
     if (newQuantity >= 1) {
@@ -24,6 +26,7 @@ const ProductDetailAction = ({ product }) => {
       setShowLoginModal(true);
       return;
     }
+    setIsLoading(true);
     try {
       await addCart({ productId: product._id, quantity: quantity });
       toast.success("Product added to cart successfully!", {
@@ -35,6 +38,8 @@ const ProductDetailAction = ({ product }) => {
         error?.response?.data?.message || "Failed to add product to cart!",
         { position: "top-right" }
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -44,7 +49,11 @@ const ProductDetailAction = ({ product }) => {
       return;
     }
     try {
-      await addWish({ productId: product._id });
+      const res = await addWish({ productId: product._id });
+      if (res.message && res.message.toLowerCase().includes("already in wishlist")) {
+        toast.warning("Already in wishlist.", { position: "top-right" });
+        return;
+      }
       dispatch(fetchWish());
       toast.success("Product added to wishlist!", { position: "top-right" });
     } catch (error) {
@@ -84,8 +93,16 @@ const ProductDetailAction = ({ product }) => {
         <button 
           className="fz-product-details__add-to-cart"
           onClick={handleAddToCart}
+          disabled={isLoading}
         >
-          Add to cart
+          {isLoading ? (
+            <>
+              <ButtonSpinner size="sm" color="black" />
+              Adding to Cart...
+            </>
+          ) : (
+            "Add to cart"
+          )}
         </button>
         <button 
           className="fz-product-details__add-to-wishlist"

@@ -2,14 +2,20 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "../../store/blogSlice";
+import BlogSkeleton from "./BlogSkeleton";
 
 const BlogSection = () => {
   const dispatch = useDispatch();
-  const blogs = useSelector((state) => state.blogs.blogs);
+  const { blogs, status } = useSelector((state) => ({
+    blogs: state.blogs.blogs,
+    status: state.blogs.status,
+  }));
 
   useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
+    if (blogs.length === 0) {
+      dispatch(fetchBlogs());
+    }
+  }, [dispatch, blogs.length]);
 
   return (
     <section className="fz-5-blog-section pt-120">
@@ -24,7 +30,9 @@ const BlogSection = () => {
           </div>
         </div>
         <div className="row g-4 justify-content-center">
-          {blogs && blogs.length > 0 ? (
+          {status === "loading" ? (
+            <BlogSkeleton count={3} />
+          ) : blogs && blogs.length > 0 ? (
             blogs.map((blog, index) => (
               <div
                 className="col-lg-4 col-md-6 col-sm-10"

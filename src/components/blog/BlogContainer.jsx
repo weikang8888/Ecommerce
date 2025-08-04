@@ -3,21 +3,28 @@ import BlogContainerSidebar from "./BlogContainerSidebar";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "../../store/blogSlice";
+import BlogSkeleton from "./BlogSkeleton";
 
 const BlogContainer = () => {
   const dispatch = useDispatch();
-  const blogs = useSelector((state) => state.blogs.blogs);
-
+  const { blogs, status } = useSelector((state) => ({
+    blogs: state.blogs.blogs,
+    status: state.blogs.status,
+  }));
   useEffect(() => {
-    dispatch(fetchBlogs());
-  }, [dispatch]);
+    if (blogs.length === 0) {
+      dispatch(fetchBlogs());
+    }
+  }, [dispatch, blogs.length]);
 
   return (
     <div className="container">
       <main className="blog-page-content">
         <div className="blogs-container">
           <div className="blogs">
-            {!blogs || blogs.length === 0 ? (
+            {status === "loading" ? (
+              <BlogSkeleton count={3} />
+            ) : !blogs || blogs.length === 0 ? (
               <div className="no-blog-post-area">
                 <h3 className="no-blog-post-text">No Blog Post Available</h3>
                 <p className="no-blog-post-desc">

@@ -1,0 +1,429 @@
+.skeleton-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .skeleton-product {
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .skeleton-product:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .skeleton-img {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .skeleton-image-placeholder {
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .skeleton-actions {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .skeleton-action-btn {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .skeleton-title {
+    width: 80%;
+    height: 20px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .skeleton-description {
+    margin-bottom: 12px;
+  }
+  
+  .fz-5-single-product-txt {
+    padding: 20px;
+  }
+  
+  .skeleton-line {
+    width: 100%;
+    height: 14px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  
+  .skeleton-line:last-child {
+    width: 70%;
+  }
+  
+  .skeleton-price {
+    width: 60%;
+    height: 18px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.6;
+    }
+  }
+  
+  /* Additional skeleton styles for text elements */
+  .skeleton-text {
+    display: flex;
+    align-items: center;
+  }
+  
+  .skeleton-text .skeleton-line {
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+  }
+  
+  /* Blog Skeleton Styles */
+  .skeleton-blog {
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    margin-bottom: 30px;
+  }
+  
+  .skeleton-blog:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .skeleton-blog-img {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .skeleton-blog-img .skeleton-image-placeholder {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .skeleton-blog-infos {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-category {
+    width: 80px;
+    height: 20px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+  }
+  
+  .skeleton-date {
+    width: 100px;
+    height: 20px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+  }
+  
+  .skeleton-blog-title {
+    width: 90%;
+    height: 24px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-blog-description {
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-blog-description .skeleton-line {
+    width: 100%;
+    height: 16px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .skeleton-image-placeholder {
+      height: 220px;
+    }
+    
+    .skeleton-action-btn {
+      width: 30px;
+      height: 30px;
+    }
+    
+    .skeleton-blog-img .skeleton-image-placeholder {
+      height: 200px;
+    }
+    
+    .skeleton-blog-infos {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  
+  /* Button Spinner Animation */
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .button-spinner {
+    vertical-align: middle;
+  }
+  
+  /* Product Detail Skeleton Styles */
+  .product-detail-skeleton {
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+  }
+  
+  .skeleton-image-container {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .skeleton-main-image {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .skeleton-thumbnails {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  .skeleton-thumbnail {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px;
+  }
+  
+  .product-info-skeleton {
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+  }
+  
+  .skeleton-title {
+    width: 80%;
+    height: 32px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-price {
+    width: 120px;
+    height: 28px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .skeleton-description {
+    margin-bottom: 25px;
+  }
+  
+  .skeleton-description .skeleton-line {
+    width: 100%;
+    height: 16px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .skeleton-quantity {
+    margin-bottom: 25px;
+  }
+  
+  .skeleton-quantity-label {
+    width: 100px;
+    height: 20px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .skeleton-minus-btn,
+  .skeleton-plus-btn {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px;
+  }
+  
+  .skeleton-quantity-input {
+    width: 80px;
+    height: 40px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px;
+  }
+  
+  .skeleton-actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .skeleton-add-to-cart-btn {
+    flex: 1;
+    height: 50px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px;
+  }
+  
+  .skeleton-wishlist-btn {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 8px;
+  }
+  
+  .skeleton-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .skeleton-detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .skeleton-detail-label {
+    width: 80px;
+    height: 16px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+  }
+  
+  .skeleton-detail-value {
+    width: 120px;
+    height: 16px;
+    background: linear-gradient(90deg, #f8f9fa 25%, #e9ecef 50%, #f8f9fa 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: 4px;
+  }
+  
+  /* Responsive adjustments for product detail skeleton */
+  @media (max-width: 768px) {
+    .skeleton-main-image {
+      height: 300px;
+    }
+    
+    .skeleton-thumbnail {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .skeleton-actions {
+      flex-direction: column;
+    }
+    
+    .skeleton-add-to-cart-btn {
+      width: 100%;
+    }
+    
+    .skeleton-wishlist-btn {
+      width: 100%;
+    }
+  } 

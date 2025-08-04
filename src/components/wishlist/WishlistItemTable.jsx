@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchWish } from "../../store/wishSlice";
@@ -5,11 +6,14 @@ import { toast } from "react-toastify";
 import { deleteWishProduct } from "../../api/wish/wish";
 import { addCart } from "../../api/cart/cart";
 import { fetchCart } from "../../store/cartSlice";
+import ButtonSpinner from "../utils/ButtonSpinner";
 
 const WishlistItemTable = ({ wishlistArray }) => {
   const dispatch = useDispatch();
+  const [loadingItems, setLoadingItems] = useState({});
 
   const handleAddWishToCart = async (id) => {
+    setLoadingItems(prev => ({ ...prev, [id]: true }));
     try {
       await addCart({ productId: id, quantity: 1 });
       toast.success("Wishlist item added to cart!", { position: "top-right" });
@@ -22,6 +26,8 @@ const WishlistItemTable = ({ wishlistArray }) => {
           "Failed to add wishlist item to cart!",
         { position: "top-right" }
       );
+    } finally {
+      setLoadingItems(prev => ({ ...prev, [id]: false }));
     }
   };
 
@@ -74,8 +80,16 @@ const WishlistItemTable = ({ wishlistArray }) => {
                     <button
                       className="fz-add-to-cart-btn fz-1-banner-btn fz-wishlist-action-btn"
                       onClick={() => handleAddWishToCart(item._id)}
+                      disabled={loadingItems[item._id]}
                     >
-                      Add to cart
+                      {loadingItems[item._id] ? (
+                        <>
+                          <ButtonSpinner size="sm" color="black" />
+                          Adding...
+                        </>
+                      ) : (
+                        "Add to cart"
+                      )}
                     </button>
                   </div>
                 </td>

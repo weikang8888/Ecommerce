@@ -1,3 +1,4 @@
+import React from "react";
 import {
   allCakeList,
   allProductList,
@@ -838,41 +839,6 @@ const FarzaaContextProvider = ({ children }) => {
     }
   };
 
-  // Add to Cake Cart
-  const addToCakeCart = (itemId) => {
-    // Find the item from allProductList using itemId
-    const itemToAdd = allCakeList.find((item) => item.id === itemId);
-
-    if (itemToAdd) {
-      const existingItemIndex = cartCakes.findIndex(
-        (item) => item.id === itemId
-      );
-      // Check if the item is already in the cart
-      if (!cartCakes.some((item) => item.id === itemId)) {
-        // Set initial quantity to 1 and total to item's price
-        const newItem = {
-          ...itemToAdd,
-          quantity: 1,
-          total: itemToAdd.price,
-        };
-
-        setCartCakes((prevCartItems) => [...prevCartItems, newItem]);
-        toast.success("Item added in cart!");
-      } else if (existingItemIndex !== -1) {
-        // Increment quantity and update total
-        const updatedCartCakes = [...cartCakes];
-        updatedCartCakes[existingItemIndex].quantity += 1;
-        updatedCartCakes[existingItemIndex].total =
-          updatedCartCakes[existingItemIndex].quantity * itemToAdd.price;
-
-        setCartCakes(updatedCartCakes);
-        toast.success("Item list updated in cart!");
-      }
-    } else {
-      toast.warning("Item not found in allProductList.");
-    }
-  };
-
   // Function to shuffle an array using Fisher-Yates algorithm
   const shuffleArray = (array) => {
     const shuffledArray = [...array];
@@ -984,7 +950,6 @@ const FarzaaContextProvider = ({ children }) => {
         cartCakeAmount,
         handleRemoveCake,
         handleCakeQuantityChange,
-        addToCakeCart,
         wishlistCakes,
         handleRemoveCakeWishlist,
         addToCakeWishlist,

@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./components/layout/Layout";
 import SunglassShop from "./pages/SunglassShop";
@@ -17,6 +18,7 @@ import TermConditionMain from "./components/main/TermConditionMain";
 import Privacy from "./pages/Privacy";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import ScrollToTop from "./components/utils/ScrollToTop";
+import "./assets/css/index.css";
 
 function App() {
   return (

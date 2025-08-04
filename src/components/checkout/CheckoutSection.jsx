@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import OrderSuccessModal from "../modal/OderSuccessModal";
 import { clearCartProduct } from "../../api/cart/cart";
 import { fetchCart } from "../../store/cartSlice";
+import ButtonSpinner from "../utils/ButtonSpinner";
 
 const CheckoutSection = () => {
   const dispatch = useDispatch();
@@ -317,7 +318,14 @@ const CheckoutSection = () => {
                 className="fz-1-banner-btn cart-checkout-btn checkout-form-btn"
                 disabled={loading}
               >
-                {loading ? "Placing Order..." : "Place Order"}
+                {loading ? (
+                  <>
+                    <ButtonSpinner size="sm" color="black" />
+                    Placing Order...
+                  </>
+                ) : (
+                  "Place Order"
+                )}
               </button>
               {error && <div className="alert alert-danger mt-3">{error}</div>}
             </div>

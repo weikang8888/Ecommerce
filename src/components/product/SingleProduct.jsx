@@ -1,7 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SingleProduct = ({ img, name, price, oldPrice }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="fz-4-single-product">
       <div className="fz-4-single-product-img">
@@ -12,6 +14,8 @@ const SingleProduct = ({ img, name, price, oldPrice }) => {
             <i className="fa-regular fa-heart"></i>
           </a>
           <a role="button" className="fz-quick-view">
+            {" "}
+            onClick={() => navigate(`/shopDetails/${item._id}`)}
             <i className="fa-regular fa-eye"></i>
           </a>
           {/* <a role="button" className="fz-compare">

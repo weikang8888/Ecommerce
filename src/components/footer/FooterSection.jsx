@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import LogoLight from '../../assets/logo-5-light.png'
 
 const FooterSection = () => {
   return (
@@ -61,7 +62,7 @@ const FooterSection = () => {
               <div className="fz-footer-about">
                 <div className="fz-footer-logo">
                   <Link to="/">
-                    <img src="assets/images/logo-5-light.png" alt="logo" />
+                    <img src={LogoLight} alt="logo" />
                   </Link>
                 </div>
 

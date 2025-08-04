@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearProfile } from "../../store/profileSlice";
 import LoginModal from "../modal/LoginModal";
 import { FarzaaContext } from "../../context/FarzaaContext";
+import Logo from '../../assets/logo-5.png'
 
 const HeaderSection = () => {
   const {
@@ -142,7 +143,7 @@ const HeaderSection = () => {
                   <div className="col-xl-3 col-6">
                     <div className="logo">
                       <Link to="/">
-                        <img src="assets/images/logo-5.png" alt="" />
+                        <img src={Logo} alt="" />
                       </Link>
                     </div>
                   </div>

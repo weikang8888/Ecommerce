@@ -85,11 +85,6 @@ const ShopAreaSection = () => {
     const allProducts = products.length > 0 ? products : sampleProducts;
     let filtered = [...allProducts];
 
-    console.log("All products:", allProducts);
-    console.log("Selected categories:", selectedCategories);
-    console.log("Selected shapes:", selectedShapes);
-    console.log("Selected prices:", selectedPrices);
-
     // Filter by category - check multiple possible field names
     if (selectedCategories.length > 0) {
       filtered = filtered.filter(product => {
@@ -97,7 +92,6 @@ const ShopAreaSection = () => {
         const matches = selectedCategories.some(cat => 
           productCategory.toLowerCase().includes(cat.toLowerCase())
         );
-        console.log(`Product ${product.name} category: ${productCategory}, matches: ${matches}`);
         return matches;
       });
     }
@@ -109,7 +103,6 @@ const ShopAreaSection = () => {
         const matches = selectedShapes.some(shape => 
           productShape.toLowerCase().includes(shape.toLowerCase())
         );
-        console.log(`Product ${product.name} shape: ${productShape}, matches: ${matches}`);
         return matches;
       });
     }
@@ -123,12 +116,10 @@ const ShopAreaSection = () => {
         const [min, max] = priceRange.split('-').map(Number);
         
         const matches = productPrice >= min && productPrice <= max;
-        console.log(`Product ${product.name} price: ${productPrice}, range: ${min}-${max}, matches: ${matches}`);
         return matches;
       });
     }
 
-    console.log("Filtered products:", filtered);
     return filtered;
   };
 

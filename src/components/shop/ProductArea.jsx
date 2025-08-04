@@ -9,6 +9,7 @@ import { fetchProducts } from "../../store/productSlice";
 import LoginModal from "../modal/LoginModal";
 import { addWish } from "../../api/wish/wish";
 import { fetchWish } from "../../store/wishSlice";
+import ProductSkeleton from "./ProductSkeleton";
 
 const ProductArea = ({
   toggleFilter,
@@ -18,8 +19,9 @@ const ProductArea = ({
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { products } = useSelector((state) => ({
+  const { products, status } = useSelector((state) => ({
     products: state.products.products,
+    status: state.products.status,
   }));
 
   const [listView, setListView] = useState(false);
@@ -55,7 +57,11 @@ const ProductArea = ({
       return;
     }
     try {
-      await addWish({ productId });
+      const res = await addWish({ productId });
+      if (res.message && res.message.toLowerCase().includes("already in wishlist")) {
+        toast.warning("Already in wishlist.", { position: "top-right" });
+        return;
+      }
       dispatch(fetchWish());
       toast.success("Product added to wishlist!", { position: "top-right" });
     } catch (error) {
@@ -158,7 +164,14 @@ const ProductArea = ({
                       <i className="fa-light fa-list"></i>
                     </button>
                   </div>
-                  {searchTerm ? (
+                  {status === "loading" ? (
+                    <div className="skeleton-text">
+                      <div
+                        className="skeleton-line"
+                        style={{ width: "200px", height: "16px" }}
+                      ></div>
+                    </div>
+                  ) : searchTerm ? (
                     <div className="text-center text-sm-start mb-0 d-flex align-items-center justify-content-between w-100 flex-column flex-md-row">
                       <div>
                         Search results for "{searchTerm}": Showing 1-
@@ -233,7 +246,9 @@ const ProductArea = ({
               </div>
             </div>
           </div>
-          {displayProducts.length > 0 ? (
+          {status === "loading" ? (
+            <ProductSkeleton count={12} />
+          ) : displayProducts.length > 0 ? (
             displayProducts.map((item) => (
               <div className="col-xl-4 col-lg-6 col-md-4 col-6" key={item._id}>
                 <div className="fz-5-single-product">
@@ -247,8 +262,8 @@ const ProductArea = ({
                       >
                         <i className="fa-regular fa-heart"></i>
                       </a>
-                      <a 
-                        role="button" 
+                      <a
+                        role="button"
                         className="fz-quick-view"
                         onClick={() => navigate(`/shopDetails/${item._id}`)}
                       >
