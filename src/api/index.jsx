@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3005/ecommerce";
+const baseURL = import.meta.env.VITE_API_BASE_URL || "https://nodejsbackend-p8sg.onrender.com/ecommerce";
 
 const API = axios.create({
   baseURL: baseURL,
