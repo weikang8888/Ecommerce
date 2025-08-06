@@ -31,7 +31,7 @@ const BlogSection = () => {
         </div>
         <div className="row g-4 justify-content-center">
           {status === "loading" ? (
-            <BlogSkeleton count={3} />
+            <BlogSkeleton count={3} displayMode="flex" />
           ) : blogs && blogs.length > 0 ? (
             blogs.map((blog, index) => (
               <div
@@ -44,9 +44,7 @@ const BlogSection = () => {
                   </div>
                   <div className="fz-5-blog-card-txt">
                     <h3 className="fz-5-blog-card-title">
-                      <Link to={`/blog`}>
-                        {blog.title || "Blog Title"}
-                      </Link>
+                      <Link to={`/blog`}>{blog.title}</Link>
                     </h3>
                     <p>
                       {blog.description ||

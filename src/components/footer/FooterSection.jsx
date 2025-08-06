@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LogoLight from '../../assets/logo-5-light.png'
+import LogoLight from "../../assets/logo-5-light.png";
 
 const FooterSection = () => {
   return (
@@ -76,18 +76,26 @@ const FooterSection = () => {
                         1, Jalan Putra 2/13, Bandar Putra, 85000 Segamat, Johor.
                       </span>
                     </li>
-                    <li>
-                      <span className="icon">
-                        <i className="fa-light fa-phone"></i>
-                      </span>
-                      <span className="txt">(60) 11-10810323</span>
-                    </li>
-                    <li>
-                      <span className="icon">
-                        <i className="fa-light fa-envelope-open-text"></i>
-                      </span>
-                      <span className="txt">weikang8805@hotmail.com</span>
-                    </li>
+                                         <li>
+                       <span className="icon">
+                         <i className="fa-light fa-phone"></i>
+                       </span>
+                       <span className="txt">
+                         <Link to="/contact" style={{ color: "inherit", textDecoration: "none" }}>
+                           (60) 11-10810323
+                         </Link>
+                       </span>
+                     </li>
+                     <li>
+                       <span className="icon">
+                         <i className="fa-light fa-envelope-open-text"></i>
+                       </span>
+                       <span className="txt">
+                         <Link to="/contact" style={{ color: "inherit", textDecoration: "none" }}>
+                           weikang8805@hotmail.com
+                         </Link>
+                       </span>
+                     </li>
                   </ul>
                 </div>
               </div>
@@ -143,45 +151,40 @@ const FooterSection = () => {
                   <p className="fz-footer-subscribe-txt">
                     Sign up to receive exclusive offers
                   </p>
-                  <form className="fz-footer-subscribe-form">
-                    <input
-                      type="email"
-                      name="footer-subs-email"
-                      id="fz-footer-subs-email"
-                      placeholder="Enter your mail..."
-                    />
-                    <button className="fz-5-def-btn">Subscribe</button>
-                  </form>
+                                     <div className="fz-footer-subscribe-form">
+                     <input
+                       type="email"
+                       name="footer-subs-email"
+                       id="fz-footer-subs-email"
+                       placeholder="Enter your mail..."
+                     />
+                     <Link to="/contact" className="fz-5-def-btn" style={{ textDecoration: "none" }}>
+                       Subscribe
+                     </Link>
+                   </div>
                 </div>
-                <div className="footer-social">
-                  <ul className="d-flex gap-4">
-                    <li>
-                      <a href="#">
-                        <i className="fa-brands fa-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i className="fa-brands fa-twitter"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i className="fa-brands fa-instagram"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i className="fa-brands fa-youtube"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i className="fa-brands fa-tiktok"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                                 <div className="footer-social">
+                   <ul className="d-flex gap-4">
+                     <li>
+                       <a 
+                         href="https://www.facebook.com/ng.weikang.9/"
+                         target="_blank"
+                         rel="noopener noreferrer"
+                       >
+                         <i className="fa-brands fa-facebook-f"></i>
+                       </a>
+                     </li>
+                     <li>
+                       <a 
+                         href="https://www.instagram.com/weikang323/"
+                         target="_blank"
+                         rel="noopener noreferrer"
+                       >
+                         <i className="fa-brands fa-instagram"></i>
+                       </a>
+                     </li>
+                   </ul>
+                 </div>
               </div>
             </div>
           </div>
@@ -192,7 +195,15 @@ const FooterSection = () => {
             <div className="col-lg-5">
               <p className="fz-copyright">
                 &copy;
-                {new Date().getFullYear()} Design & Developed by <b>Weikang</b>
+                {new Date().getFullYear()} Design & Developed by{" "}
+                <a
+                  href="https://portfolio-kuj6.onrender.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  <b>Weikang</b>
+                </a>
               </p>
             </div>
 

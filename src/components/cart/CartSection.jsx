@@ -6,7 +6,7 @@ import { fetchCart } from "../../store/cartSlice";
 
 const CartSection = () => {
   const dispatch = useDispatch();
-  const { data: cartItems } = useSelector((state) => state.cart);
+  const { data: cartItems, status } = useSelector((state) => state.cart);
 
   useEffect(() => {
     if (!cartItems) {
@@ -61,26 +61,71 @@ const CartSection = () => {
           <h4 className="cart-checkout-area__title">Billing Summary</h4>
 
           <ul className="checkout-summary">
-            <li>
-              <span className="checkout-summary__key">Subtotal</span>
-              <span className="checkout-summary__value">
-                RM{subtotal.toFixed(2)}
-              </span>
-            </li>
+            {status === "loading" ? (
+              <>
+                <li>
+                  <span className="checkout-summary__key">Subtotal</span>
+                                     <span className="checkout-summary__value">
+                                           <div
+                        className="skeleton-box d-inline-block"
+                        style={{
+                          width: 80,
+                          height: 20,
+                        }}
+                      />
+                   </span>
+                </li>
 
-            <li>
-              <span className="checkout-summary__key">Shipping</span>
-              <span className="checkout-summary__value">
-                RM{shipping.toFixed(2)}
-              </span>
-            </li>
+                <li>
+                  <span className="checkout-summary__key">Shipping</span>
+                                     <span className="checkout-summary__value">
+                                           <div
+                        className="skeleton-box d-inline-block"
+                        style={{
+                          width: 60,
+                          height: 20,
+                        }}
+                      />
+                   </span>
+                </li>
 
-            <li className="cart-checkout-total">
-              <span className="checkout-summary__key">Total</span>
-              <span className="checkout-summary__value">
-                RM{total.toFixed(2)}
-              </span>
-            </li>
+                <li className="cart-checkout-total">
+                  <span className="checkout-summary__key">Total</span>
+                                     <span className="checkout-summary__value">
+                                           <div
+                        className="skeleton-box d-inline-block"
+                        style={{
+                          width: 100,
+                          height: 24,
+                        }}
+                      />
+                   </span>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <span className="checkout-summary__key">Subtotal</span>
+                  <span className="checkout-summary__value">
+                    RM{subtotal.toFixed(2)}
+                  </span>
+                </li>
+
+                <li>
+                  <span className="checkout-summary__key">Shipping</span>
+                  <span className="checkout-summary__value">
+                    RM{shipping.toFixed(2)}
+                  </span>
+                </li>
+
+                <li className="cart-checkout-total">
+                  <span className="checkout-summary__key">Total</span>
+                  <span className="checkout-summary__value">
+                    RM{total.toFixed(2)}
+                  </span>
+                </li>
+              </>
+            )}
           </ul>
 
           {total > 0 && (

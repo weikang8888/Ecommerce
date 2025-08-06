@@ -6,13 +6,13 @@ import { fetchWish } from "../../store/wishSlice";
 
 const WishlistSection = () => {
   const dispatch = useDispatch();
-  const { data: wishItems } = useSelector((state) => state.wish);
+  const { data: wishItems, status } = useSelector((state) => state.wish);
 
   useEffect(() => {
-    if (!wishItems) {
+    if (status === "idle") {
       dispatch(fetchWish());
     }
-  }, [dispatch, wishItems]);
+  }, [dispatch, status]);
 
   return (
     <div className="container">

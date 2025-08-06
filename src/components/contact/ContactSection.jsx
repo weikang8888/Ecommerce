@@ -50,28 +50,21 @@ const ContactSection = () => {
               <h6 className="contact-socials__title">Follow Us:</h6>
               <ul>
                 <li>
-                  <a href="#">
+                  <a
+                    href="https://www.facebook.com/ng.weikang.9/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i className="fa-brands fa-facebook-f"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <i className="fa-brands fa-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
+                  <a
+                    href="https://www.instagram.com/weikang323/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <i className="fa-brands fa-instagram"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa-brands fa-youtube"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa-brands fa-tiktok"></i>
                   </a>
                 </li>
               </ul>

@@ -8,13 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearProfile } from "../../store/profileSlice";
 import LoginModal from "../modal/LoginModal";
 import { FarzaaContext } from "../../context/FarzaaContext";
-import Logo from '../../assets/logo-5.png'
+import Logo from "../../assets/logo-5.png";
 
 const HeaderSection = () => {
-  const {
-    isHeaderFixed,
-    handleQuantityChange,
-  } = useContext(FarzaaContext);
+  const { isHeaderFixed, handleQuantityChange } = useContext(FarzaaContext);
   const [activeActions, setActiveActions] = useState(false);
   const [activeSearchbar, setActiveSearchbar] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
@@ -23,9 +20,15 @@ const HeaderSection = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { data: profile } = useSelector((state) => state.profile);
-  const { data: cartItems } = useSelector((state) => state.cart);
-  const { data: wishItems } = useSelector((state) => state.wish);
+  const { data: profile, status: profileStatus } = useSelector(
+    (state) => state.profile
+  );
+  const { data: cartItems, status: cartStatus } = useSelector(
+    (state) => state.cart
+  );
+  const { data: wishItems, status: wishStatus } = useSelector(
+    (state) => state.wish
+  );
 
   // Calculate total quantity directly from Redux cart
   const totalCartQuantity =
@@ -79,12 +82,13 @@ const HeaderSection = () => {
   };
 
   const handleSearchKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch(e);
     }
   };
 
   const actionsRef = useRef(null);
+  const userDropdownRef = useRef(null);
 
   const handleClickOutside = (event) => {
     if (actionsRef.current && !actionsRef.current.contains(event.target)) {
@@ -92,6 +96,12 @@ const HeaderSection = () => {
     }
     if (actionsRef.current && !actionsRef.current.contains(event.target)) {
       setActiveSearchbar(false);
+    }
+    if (
+      userDropdownRef.current &&
+      !userDropdownRef.current.contains(event.target)
+    ) {
+      setShowUserDropdown(false);
     }
   };
 
@@ -172,13 +182,13 @@ const HeaderSection = () => {
               </div>
               <div className="col-xxl-4 col-lg-4">
                 <div className="header-search">
-                  <form 
-                    className={activeSearchbar ? "active" : ""} 
+                  <form
+                    className={activeSearchbar ? "active" : ""}
                     onSubmit={handleSearch}
                   >
-                    <input 
-                      type="search" 
-                      name="keyword" 
+                    <input
+                      type="search"
+                      name="keyword"
                       placeholder="Search products..."
                       value={searchTerm}
                       onChange={handleSearchInputChange}
@@ -195,8 +205,11 @@ const HeaderSection = () => {
                   className={`header-action ${activeActions ? "active" : ""}`}
                 >
                   <li>
-                    {userName ? (
+                    {profileStatus === "loading" ? (
+                      <div className="skeleton-user-btn"></div>
+                    ) : userName ? (
                       <div
+                        ref={userDropdownRef}
                         style={{
                           position: "relative",
                           display: "inline-block",
@@ -230,9 +243,13 @@ const HeaderSection = () => {
                                 border: "none",
                                 textAlign: "left",
                                 cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px",
                               }}
                               onClick={handleLogout}
                             >
+                              <i className="fa-regular fa-sign-out"></i>
                               Logout
                             </button>
                           </div>
@@ -246,23 +263,31 @@ const HeaderSection = () => {
                     )}
                   </li>
                   <li>
-                    <a
-                      role="button"
-                      className="fz-header-wishlist-btn"
-                      onClick={handleWishlistShow}
-                    >
-                      <i className="fa-regular fa-heart"></i>
-                    </a>
+                    {wishStatus === "loading" ? (
+                      <div className="skeleton-wishlist-btn"></div>
+                    ) : (
+                      <a
+                        role="button"
+                        className="fz-header-wishlist-btn"
+                        onClick={handleWishlistShow}
+                      >
+                        <i className="fa-regular fa-heart"></i>
+                      </a>
+                    )}
                   </li>
                   <li>
-                    <a
-                      role="button"
-                      className="fz-header-cart-btn"
-                      onClick={handleCartShow}
-                    >
-                      <span className="badge">{totalCartQuantity}</span>
-                      <i className="fa-regular fa-cart-shopping"></i>
-                    </a>
+                    {cartStatus === "loading" ? (
+                      <div className="skeleton-cart-btn"></div>
+                    ) : (
+                      <a
+                        role="button"
+                        className="fz-header-cart-btn"
+                        onClick={handleCartShow}
+                      >
+                        <span className="badge">{totalCartQuantity}</span>
+                        <i className="fa-regular fa-cart-shopping"></i>
+                      </a>
+                    )}
                   </li>
                 </ul>
               </div>

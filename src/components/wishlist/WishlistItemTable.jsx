@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchWish } from "../../store/wishSlice";
 import { toast } from "react-toastify";
 import { deleteWishProduct } from "../../api/wish/wish";
@@ -11,9 +11,10 @@ import ButtonSpinner from "../utils/ButtonSpinner";
 const WishlistItemTable = ({ wishlistArray }) => {
   const dispatch = useDispatch();
   const [loadingItems, setLoadingItems] = useState({});
+  const { status } = useSelector((state) => state.wish);
 
   const handleAddWishToCart = async (id) => {
-    setLoadingItems(prev => ({ ...prev, [id]: true }));
+    setLoadingItems((prev) => ({ ...prev, [id]: true }));
     try {
       await addCart({ productId: id, quantity: 1 });
       toast.success("Wishlist item added to cart!", { position: "top-right" });
@@ -27,7 +28,7 @@ const WishlistItemTable = ({ wishlistArray }) => {
         { position: "top-right" }
       );
     } finally {
-      setLoadingItems(prev => ({ ...prev, [id]: false }));
+      setLoadingItems((prev) => ({ ...prev, [id]: false }));
     }
   };
 
@@ -55,7 +56,60 @@ const WishlistItemTable = ({ wishlistArray }) => {
             <th>action</th>
             <th>remove</th>
           </tr>
-          {!wishlistArray || wishlistArray.length === 0 ? (
+          {status === "loading" ? (
+            <>
+              {[1, 2, 3].map((i) => (
+                <tr key={i} className="wishlist-skeleton-row">
+                  <td>
+                    <div className="cart-product">
+                      <div className="cart-product__img">
+                        <div
+                          className="skeleton-box"
+                          style={{ width: 60, height: 60 }}
+                        />
+                      </div>
+                      <div className="cart-product__txt">
+                        <div
+                          className="skeleton-box mb-2"
+                          style={{
+                            width: 120,
+                            height: 16,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="text-center">
+                    <div
+                      className="skeleton-box d-inline-block"
+                      style={{
+                        width: 60,
+                        height: 20,
+                      }}
+                    />
+                  </td>
+                  <td className="text-center">
+                    <div
+                      className="skeleton-box d-inline-block"
+                      style={{
+                        width: 100,
+                        height: 35,
+                      }}
+                    />
+                  </td>
+                  <td className="text-center">
+                    <div
+                      className="skeleton-box d-inline-block rounded-circle"
+                      style={{
+                        width: 30,
+                        height: 30,
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </>
+          ) : !wishlistArray || wishlistArray.length === 0 ? (
             <tr className="no-item-msg">
               <td className="no-item-msg-text">No items in the wishlist.</td>
             </tr>
@@ -65,7 +119,14 @@ const WishlistItemTable = ({ wishlistArray }) => {
                 <td>
                   <div className="cart-product">
                     <div className="cart-product__img">
-                      <img src={item.image} alt="Product Image" />
+                      {status === "loading" ? (
+                        <div
+                          className="skeleton-box"
+                          style={{ width: 60, height: 60 }}
+                        />
+                      ) : (
+                        <img src={item.image} alt="Product Image" />
+                      )}
                     </div>
                     <div className="cart-product__txt">
                       <h6>

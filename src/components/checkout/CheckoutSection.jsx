@@ -101,125 +101,198 @@ const CheckoutSection = () => {
           <div className="fz-billing-details">
             <div className="row gy-0 gx-3 gx-md-4">
               <h3 className="fz-checkout-title">Billing Details</h3>
-              <div className="col-6 col-xxs-12">
-                <input
-                  type="text"
-                  name="firstName"
-                  id="checkout-first-name"
-                  placeholder="First Name"
-                  value={form.firstName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-6 col-xxs-12">
-                <input
-                  type="text"
-                  name="lastName"
-                  id="checkout-last-name"
-                  placeholder="Last Name"
-                  value={form.lastName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-12">
-                <input
-                  type="text"
-                  name="companyName"
-                  id="checkout-company-name"
-                  placeholder="Company Name"
-                  value={form.companyName}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="col-12">
-                <Form.Select
-                  className="country-select"
-                  name="country"
-                  id="checkout-country"
-                  value={form.country}
-                  onChange={handleInputChange}
-                >
-                  <option value="Malaysia">Malaysia</option>
-                  <option value="United Kingdom">United Kingdom (UK)</option>
-                  <option value="France">France</option>
-                  <option value="Russia">Russia</option>
-                  <option value="Iran">Iran</option>
-                  <option value="Bangladesh">Bangladesh</option>
-                  <option value="Bhutan">Bhutan</option>
-                  <option value="Nepal">Nepal</option>
-                </Form.Select>
-              </div>
-              <div className="col-12">
-                <input
-                  type="text"
-                  name="houseStreet"
-                  id="checkout-house-street-number"
-                  placeholder="House Number & Street Name"
-                  value={form.houseStreet}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-12">
-                <input
-                  type="text"
-                  name="apartment"
-                  id="checkout-apartment-name"
-                  placeholder="Apartment, Suite, Unit, etc. (optional)"
-                  value={form.apartment}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="col-12">
-                <input
-                  type="text"
-                  name="city"
-                  id="checkout-city-name"
-                  placeholder="Town / City"
-                  value={form.city}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-6 col-xxs-12">
-                <input
-                  type="text"
-                  name="state"
-                  id="checkout-state"
-                  placeholder="State"
-                  value={form.state}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-6 col-xxs-12">
-                <input
-                  type="text"
-                  name="zip"
-                  id="checkout-zip-code"
-                  placeholder="Zip Code"
-                  value={form.zip}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>
-              <div className="col-12 additional-info">
-                <label
-                  htmlFor="checkout-additional-info"
-                  className="fz-checkout-title"
-                >
-                  Additional Information
-                </label>
-                <textarea
-                  name="additionalInfo"
-                  id="checkout-additional-info"
-                  placeholder="Notes about your order, e.g. special notes for delivery"
-                  value={form.additionalInfo}
-                  onChange={handleInputChange}
-                ></textarea>
-              </div>
+              {statusProfile === "loading" ? (
+                <>
+                  <div className="col-6 col-xxs-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-6 col-xxs-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-6 col-xxs-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-6 col-xxs-12">
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 45 }}
+                    />
+                  </div>
+                  <div className="col-12 additional-info">
+                    <div
+                      className="skeleton-box mb-2"
+                      style={{ width: 200, height: 20 }}
+                    />
+                    <div
+                      className="skeleton-box"
+                      style={{ width: "100%", height: 80 }}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="col-6 col-xxs-12">
+                    <input
+                      type="text"
+                      name="firstName"
+                      id="checkout-first-name"
+                      placeholder="First Name"
+                      value={form.firstName}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-6 col-xxs-12">
+                    <input
+                      type="text"
+                      name="lastName"
+                      id="checkout-last-name"
+                      placeholder="Last Name"
+                      value={form.lastName}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12">
+                    <input
+                      type="text"
+                      name="companyName"
+                      id="checkout-company-name"
+                      placeholder="Company Name"
+                      value={form.companyName}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <Form.Select
+                      className="country-select"
+                      name="country"
+                      id="checkout-country"
+                      value={form.country}
+                      onChange={handleInputChange}
+                    >
+                      <option value="Malaysia">Malaysia</option>
+                      <option value="United Kingdom">
+                        United Kingdom (UK)
+                      </option>
+                      <option value="France">France</option>
+                      <option value="Russia">Russia</option>
+                      <option value="Iran">Iran</option>
+                      <option value="Bangladesh">Bangladesh</option>
+                      <option value="Bhutan">Bhutan</option>
+                      <option value="Nepal">Nepal</option>
+                    </Form.Select>
+                  </div>
+                  <div className="col-12">
+                    <input
+                      type="text"
+                      name="houseStreet"
+                      id="checkout-house-street-number"
+                      placeholder="House Number & Street Name"
+                      value={form.houseStreet}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12">
+                    <input
+                      type="text"
+                      name="apartment"
+                      id="checkout-apartment-name"
+                      placeholder="Apartment, Suite, Unit, etc. (optional)"
+                      value={form.apartment}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <input
+                      type="text"
+                      name="city"
+                      id="checkout-city-name"
+                      placeholder="Town / City"
+                      value={form.city}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-6 col-xxs-12">
+                    <input
+                      type="text"
+                      name="state"
+                      id="checkout-state"
+                      placeholder="State"
+                      value={form.state}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-6 col-xxs-12">
+                    <input
+                      type="text"
+                      name="zip"
+                      id="checkout-zip-code"
+                      placeholder="Zip Code"
+                      value={form.zip}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-12 additional-info">
+                    <label
+                      htmlFor="checkout-additional-info"
+                      className="fz-checkout-title"
+                    >
+                      Additional Information
+                    </label>
+                    <textarea
+                      name="additionalInfo"
+                      id="checkout-additional-info"
+                      placeholder="Notes about your order, e.g. special notes for delivery"
+                      value={form.additionalInfo}
+                      onChange={handleInputChange}
+                    ></textarea>
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
